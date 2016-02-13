@@ -45,4 +45,4 @@
   insteadOf = https://chromium.googlesource.com/
   insteadOf = https://chromium.googlesource.com/a/
 [http]
-  cookiefile = /usr/local/google/home/michaelpg/.gitcookies
+	cookiefile = /usr/local/google/home/michaelpg/.gitcookies

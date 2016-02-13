@@ -149,12 +149,12 @@ export HISTIGNORE="&:ls:exit"
 
 export SRC_DIR=~/dev/c/src
 
-export DEPOT_TOOLS=~/dev/depot_tools
-export GOMA_DIR=~/dev/goma
-export CLANG_DIR=/~/dev/c/src/third_party/llvm-build/Release+Asserts/bin
-export GSUTIL_DIR=~/dev/gsutil
+export DEPOT_TOOLS=~/tools/depot_tools
+export GOMA_DIR=~/tools/goma
+export CLANG_DIR=#/~/dev/c/src/third_party/llvm-build/Release+Asserts/bin
+export GSUTIL_DIR=#~/dev/gsutil
 export NODE_DIR=/usr/local/bin/node/bin
-export PATH=~/ssd/dev/bin:$DEPOT_TOOLS:$GOMA_DIR:$CLANG_DIR:$GSUTIL_DIR:$NODE_DIR:$PATH
+export PATH=$DEPOT_TOOLS:$GOMA_DIR:$CLANG_DIR:$GSUTIL_DIR:$NODE_DIR:$PATH
 export PATH=$PATH:~/bin
 
 source ~/config/git-completion.bash
