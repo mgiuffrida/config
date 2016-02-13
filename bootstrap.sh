@@ -4,21 +4,25 @@ pushd ~/config > /dev/null
 
 git submodule update --init --recursive
 
+# Config files.
+FILES=(ackrc bash* gitconfig inputrc profile selected_editor tmux.conf xsession
+vim/vimrc vim/gvimrc)
+
 cd ..
 
-# Config files.
-FILES=(ackrc bash* gitconfig inputrc profile selected_editor tmux.conf xsession)
 for file in "${FILES[@]}"
 do
-  ln -sfT ~/config/"$file" ".$file"
+  if [ -f ".$file" ]; then
+    mv ".$file" ".${file}.bak"
+  fi
+  filename=$(basename "$file")
+  ln -sfT ~/config/"$file" ".$filename"
 done
 
 # Vim.
-FILES=(~/config/vim/_vimrc ~/config/vim/_gvimrc)
-for file in "${FILES[@]}"
-do
-  ln -sf $file .
-done
+if [ -d ~/.vim ]; then
+  mv ~/.vim ~/.vim.bak
+fi
 
 ln -sfT ~/config/vim/vimfiles .vim
 mkdir -p ~/.vimbackup/{swap,undo,backup}
