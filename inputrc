@@ -1,0 +1,30 @@
+# Use Vi-style editing
+# set editing-mode vi
+
+# Show all completions on tab press
+set show-all-if-ambiguous on
+# Ignore case
+set completion-ignore-case on
+
+# Show the mode (+/:)
+# set show-mode-in-prompt on
+
+
+#set keymap vi-insert
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+# Cycle through options when hitting Tab
+Tab: menu-complete
+# Shift-TAB cycles completions backward
+"\e[Z": menu-complete-backward
+$if Bash
+  # History expansion
+  Space: magic-space
+$endif
+"\e.": insert-last-argument
+
+#set keymap vi-command
+#"\e[A": history-search-backward
+#"\e[B": history-search-forward
+
+set bell-style none

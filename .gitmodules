@@ -1,0 +1,6 @@
+[submodule "emacs"]
+	path = emacs
+	url = git@github.com:mgiuffrida/emacs.git
+[submodule "vim"]
+	path = vim
+	url = git@github.com:mgiuffrida/vim.git

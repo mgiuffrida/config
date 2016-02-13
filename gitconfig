@@ -1,0 +1,48 @@
+[user]
+  name = Michael Giuffrida
+  email = michaelg@michaelg.us
+[core]
+  filemode = false
+  editor = vim
+  autocrlf = input
+[alias]
+  d = diff
+  re = rebase
+  sed = !git grep -z --full-name -l '.' | xargs -0 sed -i
+  sed-dry-run = !git grep -z --full-name -l '.' | xargs -0 sed
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  cp = cherry-pick
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  reup = rebase-update
+  nb = new-branch
+  tb = new-branch --upstream_current
+  squash = squash-branch
+  bmap = map-branches
+  up = nav-upstream
+  down = nav-downstream
+  rc = rebase --continue
+  du = diff "@{upstream}"
+  dc = diff --cached
+  ca = commit --amend --no-edit
+  fetch = fetch -p
+  tags = ! git tag | grep -E -v "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+[merge]
+  conflictsytle = diff3
+  conflictstyle = diff3
+[color]
+  ui = auto
+[push]
+  default = simple
+[branch]
+  autosetuprebase = always
+  autoseteuprebase = always
+[url "https://chromium.googlesource.com/a/"]
+  insteadOf = https://chromium.googlesource.com/
+  insteadOf = https://chromium.googlesource.com/a/
+[http]
+  cookiefile = /usr/local/google/home/michaelpg/.gitcookies
