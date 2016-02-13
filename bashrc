@@ -150,7 +150,7 @@ export HISTIGNORE="&:ls:exit"
 export SRC_DIR=~/dev/c/src
 
 export DEPOT_TOOLS=~/tools/depot_tools
-export GOMA_DIR=~/tools/goma
+export GOMA_DIR=~/goma
 export CLANG_DIR=#/~/dev/c/src/third_party/llvm-build/Release+Asserts/bin
 export GSUTIL_DIR=#~/dev/gsutil
 export NODE_DIR=/usr/local/bin/node/bin
