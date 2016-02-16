@@ -191,7 +191,7 @@ git-list-branches-by-date() {
       | sed -E "s:^  ([^ ]+):  ${yellow_text}\1${normal_text}:"
 }
 
-thefuck --alias fuck)"
+eval $(thefuck --alias fuck)
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
