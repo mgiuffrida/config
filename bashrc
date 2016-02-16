@@ -191,17 +191,22 @@ git-list-branches-by-date() {
       | sed -E "s:^  ([^ ]+):  ${yellow_text}\1${normal_text}:"
 }
 
-eval "$(thefuck --alias fuck)"
+thefuck --alias fuck)"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export NVM_DIR="/usr/local/google/home/michaelpg/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-# Load nvm, but don't automaticallyl oad the default NPM.
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
-# Manually set the "used" NPM to save time.
-export NPM_PACKAGES="$HOME/.nvm/versions/node/v5.5.0"
+# Load nvm, but don't automatically load the default NPM unless not yet loaded.
+which npm > /dev/null
+if [ $? -ne 0 ]; then
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+else
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+  # Manually set the "used" NPM to save time.
+  export NPM_PACKAGES="$HOME/.nvm/versions/node/v5.5.0"
+fi
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 export PATH="$NPM_PACKAGES/bin:$PATH"

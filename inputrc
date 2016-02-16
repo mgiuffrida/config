@@ -14,7 +14,7 @@ set completion-ignore-case on
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 # Cycle through options when hitting Tab
-Tab: menu-complete
+#Tab: menu-complete
 # Shift-TAB cycles completions backward
 "\e[Z": menu-complete-backward
 $if Bash
