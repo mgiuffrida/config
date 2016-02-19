@@ -25,7 +25,7 @@ alias emacs="/usr/local/bin/emacs --no-init-file --load=~/.emacs-normal"
 
 ## Directories
 alias c="pushd ~/dev/c/src"
-alias t="pushd /media/ssd2/c_new/"
+alias t="pushd /media/ssd/c_new/"
 
 alias XVFB="xvfb-run -s '-screen 0 1024x768x24'"
 
