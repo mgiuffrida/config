@@ -60,3 +60,5 @@ alias ninjadlc="ninja -C out_linux/Debug -j 9999 -l 40 chrome"
 alias getbranch="git status | head -n 1 | grep -Po '([[:alpha:]]|[[:digit:]])*$'"
 
 alias serve-quietly="http-server -d false -i false -c-1 -s --cors"
+
+alias grep="grep -s"
