@@ -157,7 +157,7 @@ export NODE_DIR=/usr/local/bin/node/bin
 export PATH=$DEPOT_TOOLS:$GOMA_DIR:$CLANG_DIR:$GSUTIL_DIR:$NODE_DIR:$PATH
 export PATH=$PATH:~/bin
 
-source ~/config/git-completion.bash
+source /etc/bash_completion.d/git
 
 # Exports for running chrome
 export SW="--ui-disable-threaded-compositing --disable-gpu"
