@@ -1,5 +1,3 @@
-export PATH=~/bin:$PATH
-
 if [[ $ZSH_VERSION != 5.<2->* ]]; then
   zsh --version
 fi
@@ -70,11 +68,28 @@ fi
 
 # also makes tmux use vim bindings in copy mode
 export EDITOR=vim
-
+export GIT_EDITOR=vim
 
 # Slow.
 # eval $(thefuck --alias)
 # Fast.
 TF_ALIAS=fuck alias fuck='PYTHONIOENCODING=utf-8 eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+
+# Exports for building chrome
+export DEPOT_TOOLS=~/tools/depot_tools
+export GOMA_DIR=~/tools/goma
+export NODE_DIR=/usr/local/bin/node/bin
+export PATH=$DEPOT_TOOLS:$GOMA_DIR:$NODE_DIR:$PATH
+
+# Exports for running chrome
+export SW="--ui-disable-threaded-compositing --disable-gpu"
+export LOGIN=" --login-manager --login-profile=user"
+export GUEST=' --incognito --bwsi --login-profile=user --login-user=$guest'
+export DATA=" --user-data-dir=/tmp/chrome-"
+export TEST="xvfb-run -s \"-screen 0 1024x768x24\""
+
+export PATH=~/bin:$PATH
+
+autoload git-list-branches-by-date
 
 #end_time ${(%):-%x}
