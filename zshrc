@@ -40,8 +40,9 @@ bindkey -e
 # Simpler: Remove / from WORDCHARS, add \
 WORDCHARS=${WORDCHARS%/%}\\
 
-# Disabled for now; makes things like `grep ^ls` require quoting.
-# setopt extended_glob
+# Allow extra file generation pattern matching characters. Remember to quote
+# things like |grep '^ls'| to prevent filename expansion.
+setopt extended_glob
 
 # > won't clobber, and >> won't create. Override with >| or >!, >>| or >>!.
 setopt no_clobber
