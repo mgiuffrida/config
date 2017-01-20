@@ -10,7 +10,7 @@ git submodule update --init --recursive
 
 # Config files.
 FILES=(ackrc bash* gitconfig inputrc profile selected_editor tmux.conf xsession
-       vim/vimrc vim/gvimrc vim/vundle.vim)
+       vim/vimrc vim/gvimrc vim/vundle.vim zsh*)
 
 popd > /dev/null
 
