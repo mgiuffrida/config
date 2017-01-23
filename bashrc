@@ -116,7 +116,7 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-  . /etc/bash_completion.d/g4d
+  . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
@@ -145,7 +145,9 @@ export NODE_DIR=/usr/local/bin/node/bin
 export PATH=$DEPOT_TOOLS:$GOMA_DIR:$CLANG_DIR:$GSUTIL_DIR:$NODE_DIR:$PATH
 export PATH=$PATH:~/bin
 
-source /etc/bash_completion.d/git
+if [ -f /etc/bash_completion.d/git ]; then
+  source /etc/bash_completion.d/git
+fi
 
 # Exports for running chrome
 export SW="--ui-disable-threaded-compositing --disable-gpu"
@@ -179,7 +181,9 @@ git-list-branches-by-date() {
       | sed -E "s:^  ([^ ]+):  ${yellow_text}\1${normal_text}:"
 }
 
-eval $(thefuck --alias fuck)
+if which thefuck > /dev/null; then
+  eval $(thefuck --alias fuck)
+fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

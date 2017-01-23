@@ -4,6 +4,7 @@ alias reload="source ~/.zsh_aliases"
 alias %=' '  # Paste in command lines.
 alias $=' '
 
+alias ls="ls --color=auto"
 alias la="ls -A"
 alias ll="ls -l"
 alias lla="ls -lA"

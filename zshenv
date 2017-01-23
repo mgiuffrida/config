@@ -20,3 +20,11 @@ function end_time () {
   fi
   echo "${1/$HOME/~}: ${elapsed_time/.*/} ms"
 }
+
+# For differentiating between real Linux and WSL.
+if grep -s -q Microsoft /proc/sys/kernel/osrelease /proc/version; then
+  OS=wsl
+else
+  OS=$OSTYPE
+fi
+export OS
