@@ -20,7 +20,6 @@ alias cd6="..5;.."
 
 alias ack=ack-grep
 
-alias trash="trash -v"
 alias rm="echo 'Use trash instead.'"
 alias cp="cp -i"
 alias mv="mv -i"

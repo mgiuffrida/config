@@ -2,6 +2,11 @@ if [[ $ZSH_VERSION != 5.<2->* ]]; then
   zsh --version
 fi
 
+if [[ $OS = wsl ]]; then
+  # WSL doesn't remember our default shell.
+  SHELL=/bin/zsh
+fi
+
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=2000
