@@ -1,48 +1,68 @@
-[user]
-  name = Michael Giuffrida
-  email = michaelg@michaelg.us
-[core]
-  filemode = false
-  editor = vim
-  autocrlf = input
 [alias]
-  d = diff
-  re = rebase
-  sed = !git grep -z --full-name -l '.' | xargs -0 sed -i
-  sed-dry-run = !git grep -z --full-name -l '.' | xargs -0 sed
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  cp = cherry-pick
-  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-  reup = rebase-update
-  nb = new-branch
-  tb = new-branch --upstream_current # track-branch
-  squash = squash-branch
-  bmap = map-branches
-  up = nav-upstream
-  down = nav-downstream
-  rc = rebase --continue
-  du = diff "@{upstream}"
-  dc = diff --cached
-  ca = commit --amend --no-edit
-  fetch = fetch -p
-  tags = ! git tag | grep -E -v "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
-[merge]
-  conflictsytle = diff3
-  conflictstyle = diff3
-[color]
-  ui = auto
-[push]
-  default = simple
+	arc = !git add -u && git rebase --continue
+	acpc = !git add -u && git cherry-pick --continue
+	bmap = map-branches
+	br = branch
+	ca = commit --amend --no-edit
+	cf = cl format --js
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	cu = cl upload
+	d = diff
+	di = diff
+	dif = diff
+	dc = diff --cached
+	do = diff origin/master
+	down = nav-downstream
+	du = diff "@{upstream}"
+	dus = diff "@{upstream}" --stat
+	dump = cat-file -p
+	changed = ! git st -s | sed 's/^\\s*//' | sed 's/\\s\\s*/ /g' | cut -d ' ' -f 2
+	edit-changed = ! $GIT_EDITOR $(git changed)
+	changed-head = ! git diff-tree -r --name-status HEAD~ HEAD | awk -- '/^[^D]/ { print $2 }'
+	edit-head = ! $GIT_EDITOR $(git changed-head)
+	changed-upstream = ! git diff-tree -r --name-status HEAD@{upstream} HEAD | awk -- '/^[^D]/ { print $2 }'
+	edit-upstream = ! $GIT_EDITOR $(git changed-upstream)
+	fp = fetch -p
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+        lg = log --date=local --pretty='format:%C(yellow)commit %H%n%C(white)Author: %an <%ae>%nDate:   %ad%n%n%w(0,4,4)%B%n'
+	ls = ls-files
+	nb = new-branch
+	rc = rebase --continue
+	re = rebase
+	resolve = ! $GIT_EDITOR $(git status -s | grep -e '^UU ' -e '^AA ' | cut -d ' ' -f 2 )
+	reup = rebase-update
+	sed = !git grep -z --full-name -l '.' | xargs -0 sed -i
+	sed-dry-run = !git grep -z --full-name -l '.' | xargs -0 sed
+	squash = squash-branch
+	st = status
+	tags = ! git tag | grep -E -v "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+	tb = new-branch --upstream_current # track-branch
+	type = cat-file -t
+	up = nav-upstream
+	egrep = grep -E
 [branch]
-  autosetuprebase = always
-  autoseteuprebase = always
-#[url "https://chromium.googlesource.com/a/"]
-#  insteadOf = https://chromium.googlesource.com/
-#  insteadOf = https://chromium.googlesource.com/a/
+	autosetuprebase = always
+[color]
+	ui = auto
+[core]
+	autocrlf = input
+	editor = vim
+	filemode = false
 [http]
 	cookiefile = /usr/local/google/home/michaelpg/.gitcookies
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
+[push]
+	default = simple
+[user]
+	email = michaelg@michaelg.us
+	name = Michael Giuffrida
+[url "git@github.com:"]
+	# Push over SSH even if repo was cloned over other protocols.
+	pushInsteadOf = git://github.com
+	pushInsteadOf = https://github.com
+[mergetool]
+	keepBackup = false

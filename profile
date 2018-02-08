@@ -26,3 +26,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # causes error on gui login ssh-add ~/.ssh/id_rsa_personal > /dev/null
+
+# https://chromium.googlesource.com/chromium/src/+/master/docs/linux_suid_sandbox_development.md
+export CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-devel-sandbox

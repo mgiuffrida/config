@@ -4,6 +4,9 @@ typeset -U path
 # Don't run background jobs at a lower priority
 setopt no_bg_nice
 
+# Disable backslash escape sequences in echo unless -e is present.
+setopt bsd_echo
+
 function start_time () {
   if [[ -n $start_time ]]; then
     echo "Nested scripts!"

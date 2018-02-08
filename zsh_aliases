@@ -12,44 +12,94 @@ alias lla="ls -lA"
 alias g="git"
 
 alias cdc="cd .."
-alias cd2="..;.."
-alias cd3="..2 ; .."
-alias cd4="..3;.."
-alias cd5="..4;.."
-alias cd6="..5;.."
+alias cd2="cdc;cdc"
+alias cd3="cd2;cdc"
+alias cd4="cd3;cdc"
+alias cd5="cd4;cdc"
+alias cd6="cd5;cdc"
 
 alias ack=ack-grep
 
-alias rm="echo 'Use trash instead.'"
+alias trash="trash -v"
+function use_trash_not_rm() {
+  echo "Will use trash instead of executing:"
+  echo "  % rm $@"
+  echo -n 'Or, really use `rm`? [y/N] '
+  if read -q; then
+    echo
+    echo "rm $@"
+    \rm "$@"
+  else
+    echo
+    echo "trash $@"
+    trash "$@"
+  fi
+}
+alias rm=use_trash_not_rm
 alias cp="cp -i"
 alias mv="mv -i"
+
+alias less='less -i -R'
 
 # emacs: e to open emacs with my settings, emacs to open normal emacs
 alias e="/usr/local/bin/emacs"
 alias se="sudo /usr/local/bin/emacs -u michaelpg"
 alias emacs="/usr/local/bin/emacs --no-init-file --load=~/.emacs-normal"
 
-alias XVFB="xvfb-run -s '-screen 0 1024x768x24'"
+alias XVFB="xvfb-run -a -s '-screen 0 1024x768x24'"
+
+# Directories
+alias c="pushd ~/dev/c"
+alias t="pushd ~/dev/c/tot/src"
+alias w1="pushd ~/dev/c/w1/src"
+alias w2="pushd ~/dev/c/w2/src"
+alias w3="pushd ~/dev/c/w3/src"
+alias w4="pushd ~/dev/c/w4/src"
+alias w5="pushd ~/dev/c/w5/src"
 
 # Ninja
-alias n="ninja -C out/Debug -j 9999 -l 40"
-alias nout="ninja -j 9999 -l 40 -C "
-alias ninjar="ninja -C out_cros/Release -j 9999 -l 40 chrome browser_tests"
-alias ninjarc="ninja -C out_cros/Release -j 9999 -l 40 chrome"
-alias ninjad="ninja -C out_cros/Debug -j 9999 -l 40 chrome browser_tests"
-alias ninjadc="ninja -C out_cros/Debug -j 9999 -l 40 chrome"
-alias ninjarl="ninja -C out_linux/Release -j 9999 -l 40 chrome browser_tests"
-alias ninjarlc="ninja -C out_linux/Release -j 9999 -l 40 chrome"
-alias ninjadll="ninja -C out_linux/Debug -j 9999 -l 40 chrome browser_tests"
-alias ninjadlc="ninja -C out_linux/Debug -j 9999 -l 40 chrome"
+make_ninja_aliases() {
+  COMMON_TESTS="unit_tests browser_tests extensions_unittests extensions_browsertests app_shell_unittests"
+  MORE_TESTS="extension_features_unittest chrome_extensions_interactive_uitests chrome_extensions_browsertests"
+  local targets="chrome app_shell"
+  local params="-j 999 -l 40"
+  #alias ninja="ninja -o color"
+  alias nout="ninja $params -C "
+  alias ninjacr="ninja -C out_cros/rel $params $targets"
+  alias ninjacrt="ninja -C out_cros/rel $params $targets $COMMON_TESTS"
+  alias ninjacd="ninja -C out_cros/debug $params $targets"
+  alias ninjacdt="ninja -C out_cros/debug $params $targets $COMMON_TESTS"
+  alias ninjalr="ninja -C out_linux/rel $params $targets"
+  alias ninjalrt="ninja -C out_linux/rel $params $targets $COMMON_TESTS"
+  alias ninjald="ninja -C out_linux/debug $params $targets"
+  alias ninjaldt="ninja -C out_linux/debug $params $targets $COMMON_TESTS"
+  alias ninja-closure="ninja -C out/Default"
 
-alias closure_compile="GYP_GENERATORS=ninja tools/gyp/gyp --depth . third_party/closure_compiler/compiled_resources.gyp && ninja -C out/Default"
+  # Removes a lot of TMI clang output, but also kills color highlighting.
+  local shut_up_clang='sed "s%$(which gomacc)"'\''\s\.\./\.\./third_party/llvm-build/Release+Asserts/bin/clang++%gomacc clang++%'\'' | sed '\''s%\s-[-fBDIW][a-zA-Z0-9._/=+-]*%%g'\'' | sed '\''s%\s-Xclang\s[^ ]*%%g'\'' | sed '\''s%\s[^ ]*sysroot[^ ]*%%g'\'
+  local ninja_alias
+  for ninja_alias in n nout ninjar ninjarc ninjad ninjadc ninjarl ninjarlc ninjadl ninjadlc ninjac; do
+    alias_value=$(alias $ninja_alias)
+    alias_value="${alias_value#*='}"
+    alias_value="${alias_value%'}"
+    alias_value="$alias_value | $shut_up_clang"
+    alias "s$ninja_alias"="$alias_value"
+  done
+}
+make_ninja_aliases
+
+alias stage_app_shell='\rm -rf app_shell_staging && echo "deploy_chrome --build-dir=out_appshell/Release --staging-only --staging-dir=app_shell_staging" | cros chrome-sdk --board=x86-generic && tar -czf app_shell.tgz -C app_shell_staging .'
+
+alias test_names="echo --gtest_filter=\$( git grep TEST_F chrome/test/data/webui/settings | sed 's/.*TEST_F('\''\([^'\'']*\).*/\1/' | tr '\n' ',' | sed 's/,/*:*/g' | rev | cut -c 3- | rev)"
+
+alias b=build.zsh
 
 alias generate_externs="python tools/json_schema_compiler/compiler.py --root=. --generator=externs"
 
 alias last5="git for-each-ref --sort=committerdate refs/heads/  --format='%(committerdate:short) %(refname:short)' | tail -5 | cut -c 12-"
 
-alias closure_test="java -jar ~/tot/src/third_party/closure_compiler/compiler/compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_error=accessControls --jscomp_error=ambiguousFunctionDecl --jscomp_error=checkTypes --jscomp_error=checkVars --jscomp_error=constantProperty --jscomp_error=globalThis --jscomp_error=invalidCasts --jscomp_error=missingProperties --jscomp_error=missingReturn --jscomp_error=undefinedNames --jscomp_error=undefinedVars --jscomp_error=visibility --language_in=ECMASCRIPT6_STRICT --language_out=ECMASCRIPT5_STRICT test.js"
+alias closure_test="java -jar ~/dev/c/tot/src/third_party/closure_compiler/compiler/compiler.jar --extra_annotation_name=attribute --extra_annotation_name=demo --extra_annotation_name=element --extra_annotation_name=group --extra_annotation_name=hero --extra_annotation_name=homepage --extra_annotation_name=status --extra_annotation_name=submodule --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_error=accessControls --jscomp_error=ambiguousFunctionDecl --jscomp_error=checkTypes --jscomp_error=checkVars --jscomp_error=constantProperty --jscomp_error=deprecated --jscomp_error=externsValidation --jscomp_error=globalThis --jscomp_error=invalidCasts --jscomp_error=missingProperties --jscomp_error=missingReturn --jscomp_error=nonStandardJsDocs --jscomp_error=suspiciousCode --jscomp_error=undefinedNames --jscomp_error=undefinedVars --jscomp_error=unknownDefines --jscomp_error=uselessCode --jscomp_error=visibility --language_in=ECMASCRIPT6_STRICT --language_out=ECMASCRIPT5_STRICT --jscomp_off=duplicate --jscomp_off=misplacedTypeAnnotation test.js"
+# --compilation_level=SIMPLE_OPTIMIZATIONS --jscomp_error=accessControls --jscomp_error=ambiguousFunctionDecl --jscomp_error=checkTypes --jscomp_error=checkVars --jscomp_error=constantProperty --jscomp_error=globalThis --jscomp_error=invalidCasts --jscomp_error=missingProperties --jscomp_error=missingReturn --jscomp_error=undefinedNames --jscomp_error=undefinedVars --jscomp_error=visibility --language_in=ECMASCRIPT6_STRICT --language_out=ECMASCRIPT5_STRICT test.js"
 
 alias getbranch="git status | head -n 1 | grep -Po '([[:alpha:]]|[[:digit:]])*$'"
 

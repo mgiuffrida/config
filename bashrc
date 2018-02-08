@@ -129,7 +129,6 @@ export GIT_EDITOR="vim"
 export CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-devel-sandbox
 
 umask 022
-export BOARD=link
 
 # History lines for bash to ignore, including duplicates (&)
 export HISTIGNORE="&:ls:exit"

@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+# Usage: git-list-branches-by-date [count]
+git-list-branches-by-date() {
+  local count_arg
+  if [[ $# -eq 1 ]]; then
+    count_arg="--count=$1"
+  fi
+
+  local normal_text
+  local yellow_text
+  local yellow_bg
+
+  # Use color if stdout is a terminal.
+  if [ -t 1 ]; then
+    normal_text='%f%k%b'
+    yellow_text='%F{yellow}'
+    yellow_bg='%K{green}%B'
+  fi
+
+  local current_branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+  git for-each-ref --sort=-committerdate \
+      $count_arg \
+      --format=$'  %(refname:short)   \t%(committerdate:short)\t%(authorname)\t%(objectname:short)' \
+          refs/heads \
+      | column -t -s $'\t' -n \
+      | sed -E "`print -P "s:^  (${current_branch}) :* ${yellow_bg}\\\\\1${normal_text} :"`" \
+      | sed -E "`print -P "s:^  ([^ ]+):  ${yellow_text}\\\\\1${normal_text}:"`"
+}
