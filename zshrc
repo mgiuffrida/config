@@ -25,6 +25,9 @@ setopt no_beep
 setopt nomatch
 setopt correct
 
+autoload -U select-word-style
+select-word-style bash
+
 # Set LS_COLORS before setting zsh completion colors.
 if [[ $OS = wsl ]]; then
   # Default LS_COLORS, but since the blue is too dark, dirs are blue-on-gray.
@@ -77,6 +80,13 @@ PS1='%{${fg[white]}%}$(pwd | awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(
 if [[ -r ~/.zsh_aliases ]]; then
   . ~/.zsh_aliases
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+export PATH=~/.local/bin:$PATH
 
 # also makes tmux use vim bindings in copy mode
 export EDITOR=vim

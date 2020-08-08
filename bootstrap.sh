@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 BACKUP_DIR="config_bootstrap_backup"
 

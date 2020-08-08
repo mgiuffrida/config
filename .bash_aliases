@@ -1,0 +1,1 @@
+/home/me/config/bash_aliases

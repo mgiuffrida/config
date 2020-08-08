@@ -21,7 +21,6 @@
   reup = rebase-update
   nb = new-branch
   tb = new-branch --upstream_current # track-branch
-  squash = squash-branch
   bmap = map-branches
   up = nav-upstream
   down = nav-downstream
@@ -46,3 +45,5 @@
 #  insteadOf = https://chromium.googlesource.com/a/
 [http]
 	cookiefile = /usr/local/google/home/michaelpg/.gitcookies
+[pretty]
+[pretty]

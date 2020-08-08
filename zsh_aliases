@@ -12,15 +12,15 @@ alias lla="ls -lA"
 alias g="git"
 
 alias cdc="cd .."
-alias cd2="..;.."
-alias cd3="..2 ; .."
-alias cd4="..3;.."
-alias cd5="..4;.."
-alias cd6="..5;.."
+alias cd2="cd ../.."
+alias cd3="cd ../../.."
+alias cd4="cd ../../../.."
+alias cd5="cd ../../../../.."
+alias cd6="cd ../../../../../.."
 
 alias ack=ack-grep
 
-alias rm="echo 'Use trash instead.'"
+#alias rm="echo 'Use trash instead.'"
 alias cp="cp -i"
 alias mv="mv -i"
 
