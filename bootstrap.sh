@@ -63,11 +63,4 @@ if [[ ! -d vimfiles/bundle/Vundle.vim ]]; then
 fi
 vim -u NONE -s vundle.vim +PluginInstall +qall
 
-# Emacs.
-back_up_files emacs.d emacs emacs-normal
-
-ln -sfT ~/config/emacs .emacs.d
-ln -sfT ~/config/emacs/.emacs .emacs
-ln -sfT ~/config/emacs/.emacs-normal .emacs-normal
-
 popd > /dev/null
