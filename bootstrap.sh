@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Run from home directory
+
 set -e
 
 BACKUP_DIR="config_bootstrap_backup"
@@ -10,7 +12,7 @@ git submodule update --init --recursive
 
 # Config files.
 FILES=(ackrc bash* gitconfig inputrc profile selected_editor tmux.conf xsession
-       vim/vimrc vim/gvimrc vim/vundle.vim zsh*)
+       vim/vimrc vim/gvimrc vim/plugins.vim zsh*)
 
 popd > /dev/null
 
@@ -61,6 +63,6 @@ pushd ~/config/vim > /dev/null
 if [[ ! -d vimfiles/bundle/Vundle.vim ]]; then
   git clone https://git@github.com/VundleVim/Vundle.vim vimfiles/bundle/Vundle.vim
 fi
-vim -u NONE -s vundle.vim +PluginInstall +qall
+vim +PluginInstall +qall
 
 popd > /dev/null
