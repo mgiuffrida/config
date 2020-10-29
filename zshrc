@@ -113,7 +113,7 @@ TF_ALIAS=fuck alias fuck='PYTHONIOENCODING=utf-8 eval $(thefuck $(fc -ln -1 | ta
 
 # Exports for building chrome
 export DEPOT_TOOLS=~/tools/depot_tools
-export GOMA_DIR=~/tools/goma
+#export GOMA_DIR=~/tools/goma
 export NODE_DIR=/usr/local/bin/node/bin
 export APP_ENGINE=~/tools/google_appengine
 
@@ -194,7 +194,7 @@ function ssh-personal() {
 }
 
 # Add Chromium deps, especially depot_tools, at the end.
-export PATH=$DEPOT_TOOLS:$GOMA_DIR:$NODE_DIR:$APP_ENGINE:$PATH
+export PATH=$DEPOT_TOOLS:$NODE_DIR:$APP_ENGINE:$PATH
 
 #end_time ${(%):-%x}
 
@@ -218,3 +218,8 @@ export FZF_DEFAULT_COMMAND='git rev-parse --is--work-tree 2>&1 >/dev/null && git
 #  (git ls-tree -r --name-only HEAD ||
 #   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
 #      sed s/^..//) 2> /dev/null'
+
+# cloudtop for git cl upload
+if [[ $(hostname) == *.c.googlers.com ]]; then
+  export SKIP_GCE_AUTH_FOR_GIT=1
+fi
